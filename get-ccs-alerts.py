@@ -106,26 +106,26 @@ def get_ccs_alerts():
     else:
         print(f"CSV report is still being prepared. Download it at {api}/alert/jobs/{csvjobid}/download")
  
-    # read the build policies
-    build_policies = []
-    with open('build_policies.json', 'r') as bpinfile:
-        build_policies = json.loads(bpinfile.read())
+    # # read the build policies
+    # build_policies = []
+    # with open('build_policies.json', 'r') as bpinfile:
+    #     build_policies = json.loads(bpinfile.read())
 
-    alerts = []
-    # get a CSV reader for the active alerts
-    with open(dl_filename, 'r') as ainfile:
-        areader = csv.DictReader(ainfile)
-        for r in areader:
-            if(r['Alert Status'] == 'open' and r['Policy Type'] == 'config'):
-                alerts.append(r)
-    # Match policies to alerts if available and add to each row
-    print('Alert ID, Policy Name, Policy ID')
-    for r in alerts:
-        pid = 'N/A'
-        x = [i for i in build_policies if i['name'] == r['Policy Name']]
-        if(len(x) > 0):
-            pid = x[0]['policyId']
-        print(f"{r['Alert ID']}, {r['Policy Name']}, {pid}")
+    # alerts = []
+    # # get a CSV reader for the active alerts
+    # with open(dl_filename, 'r') as ainfile:
+    #     areader = csv.DictReader(ainfile)
+    #     for r in areader:
+    #         if(r['Alert Status'] == 'open' and r['Policy Type'] == 'config'):
+    #             alerts.append(r)
+    # # Match policies to alerts if available and add to each row
+    # print('Alert ID, Policy Name, Policy ID')
+    # for r in alerts:
+    #     pid = 'N/A'
+    #     x = [i for i in build_policies if i['name'] == r['Policy Name']]
+    #     if(len(x) > 0):
+    #         pid = x[0]['policyId']
+    #     print(f"{r['Alert ID']}, {r['Policy Name']}, {pid}")
 
 
 if __name__ == '__main__':
